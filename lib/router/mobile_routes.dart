@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simpsons_character_viewer/modules/character_view/bloc/character_view_bloc.dart';
 import 'package:simpsons_character_viewer/modules/character_view/character_view_base_screen.dart';
+import 'package:simpsons_character_viewer/modules/splash/splash_screen.dart';
 import 'package:simpsons_character_viewer/router/routes.dart';
 
 class RouteGenerator {
@@ -9,6 +10,8 @@ class RouteGenerator {
     final _args = settings.arguments;
 
     switch (settings.name) {
+      case Routes.initial:
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
       case Routes.characterView:
         return MaterialPageRoute(
           builder: (context) => MultiBlocProvider(
