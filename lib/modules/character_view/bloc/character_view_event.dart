@@ -11,4 +11,8 @@ class FetchCharacterDetails extends CharacterViewEvent {
   FetchCharacterDetails(this.characterDetails);
 }
 
-class FetchFilteredCharacters extends CharacterViewEvent {}
+class FetchFilteredCharacters extends CharacterViewEvent {
+  final String filter;
+
+  FetchFilteredCharacters(this.filter);
+}

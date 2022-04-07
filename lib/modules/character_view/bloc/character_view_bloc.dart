@@ -49,5 +49,11 @@ class CharacterViewBloc extends Bloc<CharacterViewEvent, CharacterViewState> {
   }
 
   FutureOr<void> _fetchFilteredCharacter(
-      FetchFilteredCharacters event, Emitter<CharacterViewState> emit) {}
+      FetchFilteredCharacters event, Emitter<CharacterViewState> emit) async {
+    final _filteredList =
+        await _characterViewRepository.fetchFilteredList(event.filter);
+    emit(
+      CharacterListFetchSuccess(_filteredList),
+    );
+  }
 }

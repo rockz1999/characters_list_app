@@ -22,7 +22,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   late final CharacterViewBloc _characterViewBloc =
       BlocProvider.of<CharacterViewBloc>(context);
   bool showNoData = false;
-
+  final TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -35,30 +35,38 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
       color: Colors.blue[50],
       child: Stack(
         children: [
-          ListView.separated(
-              padding: const EdgeInsets.all(16),
-              separatorBuilder: (context, index) => const SizedBox(
-                    height: 10,
-                  ),
-              itemCount: _characters.length,
-              itemBuilder: (context, index) => CharacterNameWidget(
-                    name: _characters[index].getCharacterName,
-                    avatarUrl: _characters[index].getavatarUrl,
-                    onTap: () async {
-                      if (getDeviceType(context) == DeviceType.mobile) {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (_) => BlocProvider.value(
-                                value: _characterViewBloc,
-                                child: const CharacterDetailsScreen()),
-                          ),
-                        );
-                        await Future.delayed(const Duration(milliseconds: 200));
-                      }
-                      _characterViewBloc
-                          .add(FetchCharacterDetails(_characters[index]));
-                    },
-                  )),
+          Column(
+            children: [
+              _searchWidget(),
+              Expanded(
+                child: ListView.separated(
+                    padding: const EdgeInsets.all(16),
+                    separatorBuilder: (context, index) => const SizedBox(
+                          height: 10,
+                        ),
+                    itemCount: _characters.length,
+                    itemBuilder: (context, index) => CharacterNameWidget(
+                          name: _characters[index].getCharacterName,
+                          avatarUrl: _characters[index].getavatarUrl,
+                          onTap: () async {
+                            if (getDeviceType(context) == DeviceType.mobile) {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => BlocProvider.value(
+                                      value: _characterViewBloc,
+                                      child: const CharacterDetailsScreen()),
+                                ),
+                              );
+                              await Future.delayed(
+                                  const Duration(milliseconds: 200));
+                            }
+                            _characterViewBloc
+                                .add(FetchCharacterDetails(_characters[index]));
+                          },
+                        )),
+              ),
+            ],
+          ),
           if (showNoData)
             const Padding(
               padding: EdgeInsets.all(24.0),
@@ -110,5 +118,46 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
         ],
       ),
     );
+  }
+
+  Widget _searchWidget() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _controller,
+              textInputAction: TextInputAction.search,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                prefixIcon: Icon(Icons.search),
+                hintText: 'Search ',
+              ),
+              onSubmitted: (_) => _search(),
+            ),
+          ),
+          const SizedBox(
+            width: 20,
+          ),
+          TextButton(
+            onPressed: _search,
+            child: Row(
+              children: const [
+                Icon(Icons.search),
+                SizedBox(
+                  width: 8,
+                ),
+                Text('Search')
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _search() {
+    _characterViewBloc.add(FetchFilteredCharacters(_controller.text));
   }
 }

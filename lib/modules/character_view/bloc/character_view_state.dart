@@ -21,8 +21,6 @@ class CharacterDetailsFetchSuccess extends CharacterViewState {
   CharacterDetailsFetchSuccess(this.characterDetails);
 }
 
-class CharacterFilteredFetchSuccess extends CharacterViewState {}
-
 class CharacterViewFailed extends CharacterViewState {
   final String message;
 
