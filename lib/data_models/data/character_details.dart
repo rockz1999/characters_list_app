@@ -15,13 +15,13 @@ class CharacterDetailsModel {
   });
 
   final String? firstUrl;
-  final Icon? icon;
+  final CharacterIcon? icon;
   final String? result;
   final String? text;
 
   CharacterDetailsModel copyWith({
     String? firstUrl,
-    Icon? icon,
+    CharacterIcon? icon,
     String? result,
     String? text,
   }) =>
@@ -40,7 +40,7 @@ class CharacterDetailsModel {
   factory CharacterDetailsModel.fromMap(Map<String, dynamic> json) =>
       CharacterDetailsModel(
         firstUrl: json["FirstURL"],
-        icon: json["Icon"] == null ? null : Icon.fromMap(json["Icon"]),
+        icon: json["Icon"] == null ? null : CharacterIcon.fromMap(json["Icon"]),
         result: json["Result"],
         text: json["Text"],
       );
@@ -64,8 +64,8 @@ class CharacterDetailsModel {
   }
 }
 
-class Icon {
-  Icon({
+class CharacterIcon {
+  CharacterIcon({
     this.height,
     this.url,
     this.width,
@@ -75,22 +75,23 @@ class Icon {
   final String? url;
   final String? width;
 
-  Icon copyWith({
+  CharacterIcon copyWith({
     String? height,
     String? url,
     String? width,
   }) =>
-      Icon(
+      CharacterIcon(
         height: height ?? this.height,
         url: url ?? this.url,
         width: width ?? this.width,
       );
 
-  factory Icon.fromJson(String str) => Icon.fromMap(json.decode(str));
+  factory CharacterIcon.fromJson(String str) =>
+      CharacterIcon.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Icon.fromMap(Map<String, dynamic> json) => Icon(
+  factory CharacterIcon.fromMap(Map<String, dynamic> json) => CharacterIcon(
         height: json["Height"],
         url: json["URL"],
         width: json["Width"],

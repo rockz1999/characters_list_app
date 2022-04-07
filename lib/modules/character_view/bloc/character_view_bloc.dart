@@ -39,7 +39,7 @@ class CharacterViewBloc extends Bloc<CharacterViewEvent, CharacterViewState> {
   }
 
   FutureOr<void> _fetchCharacterDetails(
-      FetchCharacterDetails event, Emitter<CharacterViewState> emit) {
+      FetchCharacterDetails event, Emitter<CharacterViewState> emit) async {
     emit(
       CharacterDetailsFetchSuccess(event.characterDetails),
     );

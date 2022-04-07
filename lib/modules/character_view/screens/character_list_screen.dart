@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simpsons_character_viewer/constants/enums.dart';
 import 'package:simpsons_character_viewer/data_models/data/character_details.dart';
 import 'package:simpsons_character_viewer/modules/character_view/bloc/character_view_bloc.dart';
+import 'package:simpsons_character_viewer/modules/character_view/screens/character_details_screen.dart';
 import 'package:simpsons_character_viewer/modules/character_view/widgets/character_name_list_widget.dart';
-import 'package:simpsons_character_viewer/router/routes.dart';
 import 'package:simpsons_character_viewer/utils/check_device_type.dart';
 
 import '../../../utils/loading_indicator.dart';
@@ -42,10 +42,16 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
               itemBuilder: (context, index) => CharacterNameWidget(
                     name: _characters[index].getCharacterName,
                     avatarUrl: _characters[index].getavatarUrl,
-                    onTap: () {
+                    onTap: () async {
                       if (getDeviceType(context) == DeviceType.mobile) {
-                        Navigator.of(context)
-                            .pushNamed(Routes.characterDetails);
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                                value: _characterViewBloc,
+                                child: const CharacterDetailsScreen()),
+                          ),
+                        );
+                        await Future.delayed(const Duration(milliseconds: 200));
                       }
                       _characterViewBloc
                           .add(FetchCharacterDetails(_characters[index]));

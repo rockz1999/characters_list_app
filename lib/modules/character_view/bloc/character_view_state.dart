@@ -7,6 +7,8 @@ class CharacterViewInitial extends CharacterViewState {}
 
 class CharacterDataLoading extends CharacterViewState {}
 
+class CharacterDetailsLoading extends CharacterViewState {}
+
 class CharacterListFetchSuccess extends CharacterViewState {
   final List<CharacterDetailsModel> characters;
 

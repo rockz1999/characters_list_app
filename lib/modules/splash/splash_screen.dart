@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simpsons_character_viewer/modules/character_view/bloc/character_view_bloc.dart';
+import 'package:simpsons_character_viewer/modules/character_view/character_view_base_screen.dart';
 
 import '../../constants/strings.dart';
-import '../../router/routes.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -37,6 +39,14 @@ class _SplashScreenState extends State<SplashScreen> {
 
   void navigateToNextPage() =>
       Future.delayed(const Duration(seconds: 2), () async {
-        Navigator.pushReplacementNamed(context, Routes.characterView);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (_) => BlocProvider(
+              create: (context) => CharacterViewBloc(),
+              child: const CharacterViewBaseScreen(),
+            ),
+          ),
+        );
       });
 }

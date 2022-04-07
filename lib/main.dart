@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:simpsons_character_viewer/router/mobile_routes.dart';
-import 'package:simpsons_character_viewer/router/routes.dart';
+import 'package:simpsons_character_viewer/modules/splash/splash_screen.dart';
 import 'package:simpsons_character_viewer/utils/configurations.dart';
 
 import 'constants/strings.dart';
@@ -21,9 +20,14 @@ void main(List<String> args) async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
@@ -36,8 +40,7 @@ class MyApp extends StatelessWidget {
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      initialRoute: Routes.initial,
-      onGenerateRoute: RouteGenerator.generateRoute,
+      home: SplashScreen(),
     );
   }
 }

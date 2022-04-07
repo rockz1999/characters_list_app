@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:simpsons_character_viewer/constants/enums.dart';
 import 'package:simpsons_character_viewer/constants/strings.dart';
-import 'package:simpsons_character_viewer/modules/character_view/screens/character_details.dart';
+import 'package:simpsons_character_viewer/modules/character_view/screens/character_details_screen.dart';
 import 'package:simpsons_character_viewer/modules/character_view/screens/character_list_screen.dart';
 import 'package:simpsons_character_viewer/utils/check_device_type.dart';
 
@@ -43,7 +43,7 @@ class _CharacterViewBaseScreenState extends State<CharacterViewBaseScreen> {
   }
 
   Widget tabletContent() {
-    return Row(
+    return Column(
       children: const [
         Expanded(child: CharacterListScreen()),
         Expanded(child: CharacterDetailsScreen()),
