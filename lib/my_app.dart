@@ -1,24 +1,8 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:simpsons_character_viewer/modules/splash/splash_screen.dart';
-import 'package:simpsons_character_viewer/utils/configurations.dart';
 
 import 'constants/strings.dart';
-import 'utils/bloc_observer.dart';
-
-void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
-  BlocOverrides.runZoned(
-    () {
-      runApp(
-        const MyApp(),
-      );
-    },
-    blocObserver: AipBlocObserver(),
-  );
-}
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -36,11 +20,11 @@ class _MyAppState extends State<MyApp> {
         statusBarBrightness: Brightness.light,
       ),
     );
-    return const MaterialApp(
+    return MaterialApp(
       title: AppConstants.appName,
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

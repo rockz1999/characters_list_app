@@ -2,7 +2,7 @@ import 'package:simpsons_character_viewer/data_models/data/character_details.dar
 import 'package:simpsons_character_viewer/data_models/reponse/character_list_response.dart';
 
 import '../../../constants/messages.dart';
-import '../../../constants/network.dart';
+
 import '../../../data_models/core/api_response.dart';
 import '../../../services/dio/api_provider.dart';
 import '../../../services/local_repo.dart';
@@ -18,8 +18,8 @@ class CharacterViewRepo {
 
   Future<ApiResponse> fetchCharacterList() async {
     try {
-      ApiResponse? apiResponse = await apiProvider.performApi(
-          url: NetworkConstants.simpsonCharacterEndpoint, authorize: false);
+      ApiResponse? apiResponse =
+          await apiProvider.performApi(url: '', authorize: false);
 
       if (apiResponse != null && apiResponse.isSuccess) {
         final characterRes = CharacterListResponse.fromJson(apiResponse.result);

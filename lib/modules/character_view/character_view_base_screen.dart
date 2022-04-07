@@ -18,9 +18,9 @@ class _CharacterViewBaseScreenState extends State<CharacterViewBaseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           AppConstants.appName,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
           ),
         ),
