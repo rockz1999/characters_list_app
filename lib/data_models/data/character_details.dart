@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:simpsons_character_viewer/constants/network.dart';
+
 class CharacterDetailsModel {
   CharacterDetailsModel({
     this.firstUrl,
@@ -49,6 +51,17 @@ class CharacterDetailsModel {
         "Result": result,
         "Text": text,
       };
+
+  String get getCharacterName {
+    return text?.split('-')[0] ?? '';
+  }
+
+  String? get getavatarUrl {
+    if (icon?.url != null && icon!.url!.isNotEmpty) {
+      return NetworkConstants.devBaseURl + icon!.url!;
+    }
+    return null;
+  }
 }
 
 class Icon {

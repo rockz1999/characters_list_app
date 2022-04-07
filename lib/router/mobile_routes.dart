@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simpsons_character_viewer/modules/character_view/bloc/character_view_bloc.dart';
 import 'package:simpsons_character_viewer/modules/character_view/character_view_base_screen.dart';
+import 'package:simpsons_character_viewer/modules/character_view/screens/character_details.dart';
 import 'package:simpsons_character_viewer/modules/splash/splash_screen.dart';
 import 'package:simpsons_character_viewer/router/routes.dart';
 
@@ -22,6 +23,10 @@ class RouteGenerator {
             ],
             child: const CharacterViewBaseScreen(),
           ),
+        );
+      case Routes.characterDetails:
+        return MaterialPageRoute(
+          builder: (context) => const CharacterDetailsScreen(),
         );
 
       default:

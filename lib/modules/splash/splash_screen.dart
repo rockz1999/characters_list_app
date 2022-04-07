@@ -25,6 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: Text(
               AppConstants.appName,
               maxLines: 3,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 32,
