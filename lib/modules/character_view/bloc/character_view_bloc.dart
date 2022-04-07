@@ -30,14 +30,11 @@ class CharacterViewBloc extends Bloc<CharacterViewEvent, CharacterViewState> {
       emit(
         CharacterListFetchSuccess(characters),
       );
-
-      emit(NoCharacterDetailsSelected());
     } else {
       //Failure
       emit(
         CharacterViewFailed(message: apiResponse.message.toString()),
       );
-      emit(NoCharacterDetailsSelected());
     }
   }
 

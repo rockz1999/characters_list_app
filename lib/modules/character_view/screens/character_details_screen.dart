@@ -44,7 +44,7 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
                 setState(() {
                   _character = state.characterDetails;
                 });
-              } else if (state is NoCharacterDetailsSelected) {
+              } else if (state is CharacterListFetchSuccess) {
                 setState(() {
                   _character = null;
                 });

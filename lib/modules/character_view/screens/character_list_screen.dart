@@ -158,6 +158,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   }
 
   void _search() {
+    FocusManager.instance.primaryFocus?.unfocus();
     _characterViewBloc.add(FetchFilteredCharacters(_controller.text));
   }
 }

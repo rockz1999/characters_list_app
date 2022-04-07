@@ -43,7 +43,7 @@ class _CharacterViewBaseScreenState extends State<CharacterViewBaseScreen> {
   }
 
   Widget tabletContent() {
-    return Column(
+    return Row(
       children: const [
         Expanded(child: CharacterListScreen()),
         Expanded(child: CharacterDetailsScreen()),

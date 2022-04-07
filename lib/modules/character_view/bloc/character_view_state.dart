@@ -26,7 +26,3 @@ class CharacterViewFailed extends CharacterViewState {
 
   CharacterViewFailed({required this.message});
 }
-
-class CharacterListNoData extends CharacterViewState {}
-
-class NoCharacterDetailsSelected extends CharacterViewState {}

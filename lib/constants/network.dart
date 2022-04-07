@@ -12,7 +12,7 @@ abstract class NetworkConstants {
   static const int receiveTimeout = 20000;
   static const int imageUploadTimeout = 200000;
   static const int connectTimeout = 20000;
-  static const String devBaseURl = 'http://api.duckduckgo.com/';
+  static const String devBaseURl = 'https://api.duckduckgo.com/';
   static const String simpsonUrl = devBaseURl + simpsonCharacterEndpoint;
 
   static const String wireUrl = devBaseURl + wireCharacterEndpoint;

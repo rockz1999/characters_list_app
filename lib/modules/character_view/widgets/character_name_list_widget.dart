@@ -33,9 +33,11 @@ class CharacterNameWidget extends StatelessWidget {
               CachedNetworkImage(
                 height: 40,
                 width: 40,
+                fit: BoxFit.contain,
                 imageUrl: avatarUrl ?? '',
                 imageBuilder: (context, imageProvider) => CircleAvatar(
                   backgroundImage: imageProvider,
+                  backgroundColor: Colors.transparent,
                 ),
                 placeholder: (context, url) => const Icon(Icons.person),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
