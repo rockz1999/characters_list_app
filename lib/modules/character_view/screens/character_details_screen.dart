@@ -44,6 +44,10 @@ class _CharacterDetailsScreenState extends State<CharacterDetailsScreen> {
                 setState(() {
                   _character = state.characterDetails;
                 });
+              } else if (state is NoCharacterDetailsSelected) {
+                setState(() {
+                  _character = null;
+                });
               } else if (state is CharacterViewFailed) {
                 await ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(

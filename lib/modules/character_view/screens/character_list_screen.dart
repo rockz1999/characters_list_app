@@ -7,6 +7,7 @@ import 'package:simpsons_character_viewer/modules/character_view/screens/charact
 import 'package:simpsons_character_viewer/modules/character_view/widgets/character_name_list_widget.dart';
 import 'package:simpsons_character_viewer/utils/check_device_type.dart';
 
+import '../../../constants/strings.dart';
 import '../../../utils/loading_indicator.dart';
 
 class CharacterListScreen extends StatefulWidget {
@@ -20,6 +21,7 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
   List<CharacterDetailsModel> _characters = [];
   late final CharacterViewBloc _characterViewBloc =
       BlocProvider.of<CharacterViewBloc>(context);
+  bool showNoData = false;
 
   @override
   void initState() {
@@ -57,30 +59,54 @@ class _CharacterListScreenState extends State<CharacterListScreen> {
                           .add(FetchCharacterDetails(_characters[index]));
                     },
                   )),
-          BlocConsumer<CharacterViewBloc, CharacterViewState>(
-            bloc: _characterViewBloc,
-            listener: (context, state) async {
-              if (state is CharacterListFetchSuccess) {
-                setState(() {
-                  _characters = state.characters;
-                });
-              } else if (state is CharacterViewFailed) {
-                await ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(
-                      behavior: SnackBarBehavior.fixed,
-                      content: Text(
-                        state.message,
-                        textAlign: TextAlign.center,
-                      ),
-                      duration: const Duration(seconds: 2),
-                    ))
-                    .closed;
-              }
-            },
-            builder: (context, state) => LoadingIndicator(
-              visibility: (state is CharacterDataLoading),
+          if (showNoData)
+            const Padding(
+              padding: EdgeInsets.all(24.0),
+              child: Center(
+                child: Text(
+                  AppConstants.noData,
+                  maxLines: 3,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 32,
+                  ),
+                ),
+              ),
             ),
-          ),
+          BlocConsumer<CharacterViewBloc, CharacterViewState>(
+              bloc: _characterViewBloc,
+              listener: (context, state) async {
+                if (state is CharacterListFetchSuccess) {
+                  setState(() {
+                    _characters = state.characters;
+                    showNoData = _characters.isEmpty;
+                  });
+                } else if (state is CharacterDataLoading) {
+                  setState(() {
+                    showNoData = false;
+                  });
+                } else if (state is CharacterViewFailed) {
+                  setState(() {
+                    showNoData = true;
+                  });
+                  await ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(
+                        behavior: SnackBarBehavior.fixed,
+                        content: Text(
+                          state.message,
+                          textAlign: TextAlign.center,
+                        ),
+                        duration: const Duration(seconds: 2),
+                      ))
+                      .closed;
+                }
+              },
+              builder: (context, state) {
+                return LoadingIndicator(
+                  visibility: (state is CharacterDataLoading),
+                );
+              }),
         ],
       ),
     );
